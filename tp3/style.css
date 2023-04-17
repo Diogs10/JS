@@ -1,0 +1,46 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body{
+    background-color: gray;
+}
+.bloc_btn{
+    margin-top: 5%;
+    margin-left: 5%;
+    height: 5em;
+    width: 60%;
+    background-color: white;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+button{
+    width: 15em;
+    border-radius: 20%;
+    height: 3em;
+    color: white;
+    font-weight: bold;
+    font-size: large;
+}
+.btn1{
+    background-color: green;
+}
+.btn2{
+    background-color: red;
+}
+.btn3{
+    background-color: yellow;
+}
+.btn4{
+    background-color: aqua;
+}
+.notif{
+    position: absolute;
+    right: 0;
+    bottom: 0;  
+}
+.btn{
+    height: 6em;
+}

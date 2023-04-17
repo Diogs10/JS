@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <form name="formu">
+        <p>2 et 2 font 5 :
+            <input type="checkbox" name="checkbox" value="checkbox" onClick="faux(); stop()">
+            vrai
+            <input type="checkbox" name="checkbox2" value="checkbox">
+            faux
+        </p>
+        <p>4 et 4 font 8 :
+            <input type="checkbox" name="checkbox3" value="checkbox">
+            vrai
+            <input type="checkbox" name="checkbox4" value="checkbox" onClick="faux(); stop()">
+            faux
+        </p>
+        <p align="center">
+            <font face="Arial, Helvetica, sans-serif" size="2">
+                <input type="hidden" name="prim2">
+                <input type="button" value="Votre score " name="Bouton2" onClick="score(); bravo()">
+            </font>
+        </p>
+        <p align="center">
+            <font face="Arial, Helvetica, sans-serif" size="3"><b>Vous
+                    avez fait
+                    <input type="text" name="fautes2" size="2" value="0" maxlength="2">
+                    fautes</b></font>
+        </p>
+    </form>
+    <script>
+        function faux() {
+            document.formu.prim.value++
+        }
+        function score() {
+            document.formu.fautes.value = document.formu.prim.value
+        }
+        function stop() {
+            if (document.formu.prim.value > 3) {
+                alert("Trop d'erreurs. Recommencez ou relisez la rubrique le coeur d'un PC, pour plus d'infos !");
+            }
+            else {
+            }
+        }
+        function bravo() {
+            if (document.formu.prim.value == 0) {
+                alert("Bravo, aucune faute.")
+            }
+            else {
+            }
+        }
+    </script>
+</body>
+
+</html>

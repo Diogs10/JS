@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8"/>
+  <title>JavaScript Scheduler: Events as Drag and Drop Target</title>
+
+  <style type="text/css">
+    p, body, td, input, select, button {
+      font-family: -apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+      font-size: 14px;
+    }
+
+    body {
+      padding: 0px;
+      margin: 0px;
+      background-color: #ffffff;
+    }
+
+    a {
+      color: #1155a3;
+    }
+
+    .space {
+      margin: 10px 0px 10px 0px;
+    }
+
+    .header {
+      background: #003267;
+      background: linear-gradient(to right, #011329 0%, #00639e 44%, #011329 100%);
+      padding: 20px 10px;
+      color: white;
+      box-shadow: 0px 0px 10px 5px rgba(0, 0, 0, 0.75);
+    }
+
+    .header a {
+      color: white;
+    }
+
+    .header h1 a {
+      text-decoration: none;
+    }
+
+    .header h1 {
+      padding: 0px;
+      margin: 0px;
+    }
+
+    .main {
+      padding: 10px;
+      margin-top: 20px;
+    }
+
+    .generated {
+      color: #999;
+    }
+
+    .generated a {
+      color: #999;
+    }
+  </style>
+
+  <style>
+    .draggable {
+      cursor: move;
+    }
+
+    .item {
+      display: inline-block;
+      padding: 10px 20px;
+      margin-right: 5px;
+      text-align: center;
+
+      border-radius: 30px;
+      background-color: #38761d;
+      color: #ffffff;
+    }
+
+    .dragging-over {
+      outline: 2px solid #38761d;
+    }
+
+    .scheduler_default_event, .scheduler_default_event_inner {
+      border-radius: 30px;
+    }
+
+    body .scheduler_default_event_inner {
+      padding-left: 10px;
+    }
+
+  </style>
+
+  <!-- DayPilot library -->
+  <script src="js/daypilot/daypilot-all.min.js"></script>
+</head>
+<body>
+<div class="header">
+  <h1><a href='https://code.daypilot.org/12371/javascript-scheduler-events-as-drag-and-drop-target'>JavaScript
+    Scheduler: Events as Drag and Drop Target</a></h1>
+  <div><a href="https://javascript.daypilot.org/">DayPilot for JavaScript</a> - HTML5 Calendar/Scheduling Components for
+    JavaScript/Angular/React/Vue
+  </div>
+</div>
+
+<div class="main" style="display:flex;">
+
+  <div style="width:200px; flex: 1;">
+    <div style="margin-bottom: 10px;">You can drag these items to Scheduler events:</div>
+
+    <div class="draggable item" data-id="1" data-name="Item 1">Item 1</div>
+    <div class="draggable item" data-id="2" data-name="Item 2">Item 2</div>
+  </div>
+
+  <div style="flex: 4;">
+    <div id="dp"></div>
+    <div class="generated">Generated using <a href="https://builder.daypilot.org/">DayPilot UI Builder</a>.</div>
+  </div>
+
+</div>
+
+
+<script>
+  var dp = new DayPilot.Scheduler("dp", {
+    timeHeaders: [{"groupBy": "Month"}, {"groupBy": "Day", "format": "d"}],
+    scale: "Day",
+    days: 30,
+    startDate: "2023-04-01",
+    durationBarVisible: false,
+    eventHeight: 50,
+    onTimeRangeSelected: async (args) => {
+      const modal = await DayPilot.Modal.prompt("Create a new event:", "Event 1");
+      dp.clearSelection();
+      if (modal.canceled) {
+        return;
+      }
+
+      dp.events.add({
+        start: args.start,
+        end: args.end,
+        id: DayPilot.guid(),
+        resource: args.resource,
+        text: modal.result
+      });
+
+    },
+    onBeforeEventRender: args => {
+      args.data.backColor = "#93c47d";
+      args.data.borderColor = "darker";
+      args.data.fontColor = "#ffffff";
+
+      if (args.data.items) {
+        args.data.html = args.data.items.map(item => {
+          const text = DayPilot.Util.escapeHtml(item.name);
+          return `<div class="item">${text}</div> `
+        }).join("");
+      } else {
+        args.data.html = "(empty)";
+      }
+    },
+    onAfterEventRender: (args) => {
+
+      args.div.addEventListener("dragover", (ev) => {
+        const hasMyType = ev.dataTransfer.types.some(type => type === "daypilot/external-item");
+        if (hasMyType) {
+          ev.preventDefault();
+          ev.dataTransfer.dropEffect = "move";
+        }
+        args.div.classList.add("dragging-over");
+      });
+
+      args.div.addEventListener("dragleave", (ev) => {
+        args.div.classList.remove("dragging-over");
+      });
+
+      args.div.addEventListener("drop", (ev) => {
+
+        if (!args.e.data.items) {
+          args.e.data.items = [];
+        }
+
+        const data = JSON.parse(ev.dataTransfer.getData("daypilot/external-item"));
+        args.e.data.items.push(data);
+
+        dp.events.update(args.e);
+      });
+    },
+
+  });
+  dp.init();
+
+  const app = {
+    activateItems() {
+      const src = document.getElementsByClassName("draggable");
+
+      for (let item of src) {
+        item.setAttribute("draggable", "true");
+
+        item.addEventListener("dragstart", (ev) => {
+          const data = {
+            id: item.dataset.id,
+            name: item.dataset.name
+          };
+          ev.dataTransfer.setData("daypilot/external-item", JSON.stringify(data));
+        });
+
+        item.addEventListener("dragend", (ev) => {
+          if (ev.dataTransfer.dropEffect === "move") {
+            item.parentElement.removeChild(item);
+          }
+        });
+
+      }
+    },
+    loadSchedulerData() {
+      const resources = [
+        {name: "Resource 1", id: "R1"},
+        {name: "Resource 2", id: "R2"},
+        {name: "Resource 3", id: "R3"},
+        {name: "Resource 4", id: "R4"},
+        {name: "Resource 5", id: "R5"},
+        {name: "Resource 6", id: "R6"},
+        {name: "Resource 7", id: "R7"},
+        {name: "Resource 8", id: "R8"},
+      ];
+
+      const events = [
+        {
+          id: 1,
+          start: "2023-04-02",
+          end: "2023-04-10",
+          resource: "R2",
+          text: "Event 1"
+        }
+      ];
+
+      dp.update({
+        events,
+        resources
+      });
+
+    },
+    init() {
+      app.loadSchedulerData();
+      app.activateItems();
+    }
+  };
+  app.init();
+
+
+</script>
+
+</body>
+</html>

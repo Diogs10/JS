@@ -1,0 +1,105 @@
+@import url('https://fonts.googleapis.com/css2?family=Sansita+Swashed:wght@500&display=swap');
+* {
+  box-sizing: border-box;
+  font-family: 'Sansita Swashed', cursive;
+}
+
+input {
+ 
+  background: #F2D750;
+  border: solid #636363 1px;
+}
+
+body {
+  overflow: hidden;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  text-align: center;
+  height: 100vh;
+  
+}
+ #password-generator {
+  position: relative;
+  padding: 20px;
+  margin: 0 auto;
+  /* taille generateur */
+  width: 500px;
+  height: 450px; 
+  border-radius: 30px;
+  background: #F2D750;
+}
+.range{
+	 font-size: 20px;
+}
+#taille, #nombre {
+	
+  text-align: left;
+  font-size: 32px;
+  margin: 0 auto 1.2rem;
+  width: 14%;
+}
+ #password-generator #passwordoutput  {
+  text-align: left;
+  font-size: 40px;
+  margin: 0 auto 20px;
+  width: 100%;
+}
+
+
+ #password-generator   #password-generator  {
+  padding: 16px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.25);
+}
+#password-generator  #display-password-length {
+  text-align: center;
+  font-size: 20px;
+  width: 80px;
+  padding-top: 10px;
+}
+ #password-generator .flex {
+  margin: 1rem 1rem 2rem;
+  display: flex;
+  justify-content: space-between;
+}
+#password-generator .flex input {
+  display: none;
+}
+ #password-generator .flex input:checked + label {
+  background: white;
+  transform: scale(1.1);
+}
+ #password-generator .flex label {
+  border: 2px solid white;
+  border-radius: 30px;
+  padding: .8rem;
+  cursor: pointer;
+  font-size: 1.3rem;
+  text-align: center;
+  display: block;
+  width: 90px;
+  transition: 0.2s ease;
+}
+ /* bouton generer et copier */
+ #password-generator button {
+  font-family: 'Sansita Swashed', cursive;
+  background-color: white;
+  border: solid #F2D750;
+  color: black;
+  padding: 16px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  transition-duration: 0.4s;
+  cursor: pointer;
+  border-radius: 30px;
+}
+ #password-generator button:hover {
+  background-color: #F2D750;
+  color: white;
+  font-size: 26px;
+  border-radius: 30px;
+}

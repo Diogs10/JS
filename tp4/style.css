@@ -1,0 +1,150 @@
+body {
+    overflow: hidden;
+}
+
+.a {
+    color: white;
+    position: absolute;
+    top: 5%;
+    right: 5%;
+    visibility: hidden;
+}
+
+/* .a:hover {
+    visibility: visible;
+} */
+
+.fonce {
+    height: 95%;
+    width: 95%;
+    background-color: rgb(124, 57, 186);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    position: relative;
+    /* overflow: hidden; */
+}
+
+.clair {
+    background-color: rgb(167, 129, 202);
+    height: 85vh;
+    width: 40%;
+    margin: 5% auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* overflow: hidden; */
+}
+
+#copie {
+    width: 90%;
+    height: 7%;
+    margin-top: 2%;
+    margin-left: 5%;
+    background-color: rgb(167, 129, 202);
+}
+
+.ligne1,
+.ligne2,
+.ligne3,
+.ligne4,
+.ligne5 {
+    color: white;
+    font-size: 2em;
+    padding-left: 5%;
+    font-weight: bold;
+
+}
+
+.ligne1,
+.ligne2,
+.ligne3,
+.ligne4,
+.ligne5 {
+    display: flex;
+    justify-content: space-between;
+    padding: 5%;
+}
+
+#c1 {
+    width: 2em;
+}
+
+.bloc_bouton {
+    height: 10%;
+    width: 90%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 5%;
+}
+
+button {
+    background-color: rgb(230, 141, 32);
+    color: rgb(124, 57, 186);
+    width: 100%;
+    height: 100%;
+    font-size: 2em;
+    font-weight: bold;
+}
+
+.msgNbr {
+    content: "Le nombre doit etre compris entre 1 et 20";
+    background-color: red;
+    width: 20%;
+    height: 10%;
+    position: absolute;
+    font-size: xx-large;
+    text-align: center;
+    transform: scaleX(1);
+    left: -20%;
+    animation: aminMsg 2S linear 1;
+}
+
+.msgCkek {
+    content: "Cochez au moins une cage";
+    background-color: red;
+    width: 20%;
+    height: 10%;
+    position: absolute;
+    font-size: xx-large;
+    text-align: center;
+    transform: scaleX(1);
+    right: -20%;
+    animation: aminCkhek 2S linear 1;
+}
+@keyframes aminMsg {
+    0% {
+        left: -20%;
+    }
+
+    10% {
+        left: 0;
+    }
+
+    90% {
+        left: 0;
+    }
+
+    100% {
+        left: -20%;
+    }
+}
+
+@keyframes aminCkhek {
+    0% {
+        right: -20%;
+    }
+
+    10% {
+        right: 0;
+    }
+
+    90% {
+        right: 0;
+    }
+
+    100% {
+        right: -20%;
+    }
+}

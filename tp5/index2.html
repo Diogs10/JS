@@ -1,0 +1,23 @@
+<html>
+
+<head>
+    <script language="javascript">
+        function valider() {
+            if (document.getElementById("casea").checked && document.getElementById("caseb").checked && !document.getElementById("casec").checked) {
+                alert('Bravo !!!');
+            } else {
+                alert('Votre réponse est incorrecte...');
+            }
+        }
+    </script>
+</head>
+
+<body>
+    <div>Parmis les personnes célèbres suivantes, lesquelles sont des scientifiques ?</div>
+    <input id="casea" type="checkbox">Albert Einstein<br>
+    <input id="caseb" type="checkbox">Niels Bohr<br>
+    <input id="casec" type="checkbox">Honoré de Balzac<br>
+    <div style="text-align:center"><input type="button" value="Valider" onClick="valider()"></div>
+</body>
+
+</html>

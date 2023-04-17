@@ -1,0 +1,76 @@
+*
+{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+.conteneur
+{
+    background-color: aqua;
+    height: 100vh;
+}
+
+.bouton
+{
+    width: 100%;
+    height: 10%;
+    background-color: red;
+    position: relative;
+}
+
+.btn{
+    position: absolute;
+    right: 1%;
+    padding: 10px 20px;
+    top: 50%;
+}
+.bloc_note
+{
+    width: 100%;
+    height: auto;
+    background-color: green;
+    display: flex;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+}
+.note
+{
+    height: 550px;
+    width: 400px;
+    background-color: violet;
+    margin-top: 10px;
+}
+.bouton_2
+{
+    width: 100%;
+    height: 10%;
+    background-color: lightcoral;
+    position: relative;
+}
+.zone_texte
+{
+    width: 100%;
+    height: 90%;
+
+}
+.edit,.trash
+{
+    color: white;
+    position: absolute;
+    top: 30%;
+    transform: translateX(-50%);
+}
+
+.edit
+{
+    right: 10%;
+}
+.trash
+{
+    right:0;
+}
+img
+{
+    width: 30px;
+    height: 30px;
+}
